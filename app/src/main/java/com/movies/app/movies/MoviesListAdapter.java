@@ -1,11 +1,13 @@
 package com.movies.app.movies;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.movies.app.movies.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,9 +21,11 @@ import java.util.List;
 public class MoviesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> movieList;
+    private Context context;
 
-    public MoviesListAdapter(List<String> movieList) {
+    public MoviesListAdapter(List<String> movieList, Context context) {
         this.movieList = movieList;
+        this.context = context;
     }
 
     @Override
@@ -35,7 +39,8 @@ public class MoviesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MovieListVH movieListVH = (MovieListVH) holder;
         String imageUrl = movieList.get(position);
-        Picasso.with(movieListVH.imgMoviePoster.getContext()).load(imageUrl).placeholder(R
+        Picasso.with(context).setLoggingEnabled(true);
+        Picasso.with(context).load(imageUrl).placeholder(R
                 .drawable.poster_placeholder).into(movieListVH.imgMoviePoster);
     }
 
