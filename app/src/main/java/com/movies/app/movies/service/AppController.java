@@ -14,11 +14,8 @@ import com.android.volley.toolbox.Volley;
 
 public class AppController extends Application {
 
-    public static final String TAG = AppController.class
-            .getSimpleName();
-
+    public static final String TAG = AppController.class.getSimpleName();
     private RequestQueue mRequestQueue;
-
     private static AppController mInstance;
 
     @Override
@@ -37,12 +34,6 @@ public class AppController extends Application {
         }
 
         return mRequestQueue;
-    }
-
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
-        // set the default tag if tag is empty
-        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
-        getRequestQueue().add(req);
     }
 
     public <T> void addToRequestQueue(Request<T> req) {

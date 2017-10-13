@@ -1,4 +1,4 @@
-package com.movies.app.movies;
+package com.movies.app.movies.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.movies.app.movies.R;
+import com.movies.app.movies.model.viewmodel.MovieItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,10 +21,11 @@ import java.util.List;
 
 public class MoviesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> movieList;
+    private List<MovieItem> movieList;
     private Context context;
+    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w92";
 
-    public MoviesListAdapter(List<String> movieList, Context context) {
+    public MoviesListAdapter(List<MovieItem> movieList, Context context) {
         this.movieList = movieList;
         this.context = context;
     }
@@ -38,10 +40,12 @@ public class MoviesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MovieListVH movieListVH = (MovieListVH) holder;
-        String imageUrl = movieList.get(position);
-        Picasso.with(context).setLoggingEnabled(true);
-        Picasso.with(context).load(imageUrl).placeholder(R
-                .drawable.poster_placeholder).into(movieListVH.imgMoviePoster);
+        MovieItem movieItem = movieList.get(position);
+        if (movieItem != null) {
+            String imageUrl = IMAGE_BASE_URL + movieItem.getPosterPath();
+            Picasso.with(context).load(imageUrl).placeholder(R
+                    .drawable.poster_placeholder).into(movieListVH.imgMoviePoster);
+        }
     }
 
     @Override
@@ -49,11 +53,11 @@ public class MoviesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return movieList == null ? 0 : movieList.size();
     }
 
-    static class MovieListVH extends RecyclerView.ViewHolder {
+    private static class MovieListVH extends RecyclerView.ViewHolder {
 
         private ImageView imgMoviePoster;
 
-        public MovieListVH(View itemView) {
+        private MovieListVH(View itemView) {
             super(itemView);
             imgMoviePoster = itemView.findViewById(R.id.imgMoviePoster);
         }
