@@ -1,29 +1,21 @@
 package com.movies.app.movies.view;
 
+import com.movies.app.movies.model.viewmodel.MovieItem;
+
+import java.util.List;
+
 /**
- * Created by 10599 on 10/11/2017.
+ * Created by Anusha on 10/11/2017.
+ *
+ * View callback interface.
  */
 
 public interface MoviesView {
 
+    void onListResponseSuccess(List<MovieItem> movieItems);
 
+    void onMovieDetailResponseSuccess(MovieItem movieItem);
 
-    /**
-     * Callback containing the formatted data, after receiving a success response from server.
-     *
-     * @param videoInfoVm : View model containing formatted data.
-     */
-    void onResponseSuccess(String videoInfoVm);
+    void onError(Exception exception);
 
-    /**
-     * Callback containing the error details, after receiving an unexpected exception from server.
-     *
-     * @param errorResponseBM : Model containing error details.
-     */
-//    void onError(ErrorResponseBM errorResponseBM);
-
-    /**
-     * Callback which informs UI that the server returned a success response but with empty data.
-     */
-//    void onNoDataAvailable();
 }
